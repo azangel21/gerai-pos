@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gerai POS</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>GERAI POS</h1>
+        <p>Cashier System</p>
+    </div>
+
+    <button class="sales-button" onclick="showSales()">
+        📊 Sales
+    </button>
+</header>
+
+
+<main>
+
+    <!-- LEFT SIDE: MENU -->
+    <section class="menu-section">
+
+        <div class="category-tabs">
+            <button class="category active" onclick="showCategory('burger', this)">
+                🍔 Burger
+            </button>
+
+            <button class="category" onclick="showCategory('sausage', this)">
+                🌭 Sausage
+            </button>
+
+            <button class="category" onclick="showCategory('jagung', this)">
+                🌽 Jagung
+            </button>
+
+            <button class="category" onclick="showCategory('peach', this)">
+                🍑 Peach
+            </button>
+        </div>
+
+
+        <!-- BURGER -->
+        <div id="burger" class="product-category">
+
+            <h2>Burgers</h2>
+
+            <div class="products">
+
+                <button class="product"
+                    onclick="addBurger('Normal Burger', 2)">
+                    <span>🍔</span>
+                    <strong>Normal Burger</strong>
+                    <small>Bread, buns & sauce</small>
+                    <b>$2.00</b>
+                </button>
+
+                <button class="product"
+                    onclick="addBurger('Special Burger', 3)">
+                    <span>🍔</span>
+                    <strong>Special Burger</strong>
+                    <small>Lettuce, vegetables & caramelized onion</small>
+                    <b>$3.00</b>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SAUSAGE -->
+        <div id="sausage" class="product-category hidden">
+
+            <h2>Sausage</h2>
+
+            <div class="products">
+
+                <button class="product"
+                    onclick="addItem('BBQ Sausage', 0.50)">
+                    <span>🌭</span>
+                    <strong>BBQ Sausage</strong>
+                    <small>1 piece</small>
+                    <b>$0.50</b>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- JAGUNG -->
+        <div id="jagung" class="product-category hidden">
+
+            <h2>Jagung</h2>
+
+            <div class="products">
+
+                <button class="product"
+                    onclick="addItem('Butter Jagung', 2)">
+                    <span>🌽</span>
+                    <strong>Butter Jagung</strong>
+                    <b>$2.00</b>
+                </button>
+
+                <button class="product"
+                    onclick="addItem('Cheese Jagung', 3)">
+                    <span>🧀</span>
+                    <strong>Cheese Jagung</strong>
+                    <b>$3.00</b>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PEACH -->
+        <div id="peach" class="product-category hidden">
+
+            <h2>Drinks</h2>
+
+            <div class="products">
+
+                <button class="product"
+                    onclick="addItem('Peach Tea', 2)">
+                    <span>🍑</span>
+                    <strong>Peach Tea</strong>
+                    <b>$2.00</b>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT SIDE: ORDER -->
+    <section class="order-section">
+
+        <h2>🛒 Current Order</h2>
+
+        <div id="cart">
+
+            <div class="empty-cart">
+                <span>🛒</span>
+                <p>No items yet</p>
+                <small>Tap an item to add it</small>
+            </div>
+
+        </div>
+
+
+        <div class="order-bottom">
+
+            <div class="total-row">
+                <span>TOTAL</span>
+                <strong id="total">$0.00</strong>
+            </div>
+
+
+            <div class="payment">
+
+                <label>Cash Received</label>
+
+                <input
+                    type="number"
+                    id="cashReceived"
+                    placeholder="$0.00"
+                    step="0.01"
+                    oninput="calculateChange()"
+                >
+
+                <div class="change-row">
+                    <span>Change</span>
+                    <strong id="change">$0.00</strong>
+                </div>
+
+            </div>
+
+
+            <div class="order-actions">
+
+                <button class="clear-button" onclick="clearCart()">
+                    Clear
+                </button>
+
+                <button class="checkout-button" onclick="checkout()">
+                    Complete Sale
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- BURGER ADD-ON POPUP -->
+
+<div id="burgerModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <h2 id="burgerName">Burger</h2>
+
+        <p>Add extras?</p>
+
+        <label class="addon">
+            <input type="checkbox" id="eggAddon">
+            <span>🥚 Add Egg</span>
+            <strong>+$1.00</strong>
+        </label>
+
+        <label class="addon">
+            <input type="checkbox" id="pattyAddon">
+            <span>🍔 Double Patty</span>
+            <strong>+$1.00</strong>
+        </label>
+
+        <div class="modal-buttons">
+
+            <button onclick="closeBurgerModal()">
+                Cancel
+            </button>
+
+            <button class="add-button" onclick="confirmBurger()">
+                Add to Order
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

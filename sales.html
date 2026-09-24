@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gerai POS - Sales</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #f4f5f7;
+            color: #222;
+        }
+
+        /* HEADER */
+
+        header {
+            background: white;
+            padding: 20px 30px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            border-bottom: 1px solid #ddd;
+        }
+
+        header h1 {
+            font-size: 25px;
+        }
+
+        header p {
+            color: #777;
+            margin-top: 4px;
+        }
+
+        .back-button {
+            border: none;
+            background: #222;
+            color: white;
+
+            padding: 14px 20px;
+            border-radius: 12px;
+
+            font-size: 15px;
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+
+        /* MAIN */
+
+        main {
+            padding: 25px 30px;
+            max-width: 1300px;
+            margin: auto;
+        }
+
+
+        /* SUMMARY CARDS */
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 24px;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .card p {
+            color: #777;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .card h2 {
+            font-size: 32px;
+            margin-top: 8px;
+        }
+
+
+        /* CONTENT */
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 18px;
+            padding: 22px;
+
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .panel h2 {
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+
+        /* ITEM SALES */
+
+        .item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 600;
+        }
+
+        .item-count {
+            background: #eee;
+            padding: 7px 12px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+
+        /* TRANSACTIONS */
+
+        .transaction {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transaction:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .transaction-number {
+            font-weight: 700;
+        }
+
+        .transaction-total {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .transaction-details {
+            color: #777;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+
+        /* EMPTY */
+
+        .empty {
+            color: #999;
+            text-align: center;
+            padding: 40px 10px;
+        }
+
+
+        /* CLEAR SALES */
+
+        .clear-sales {
+            margin-top: 25px;
+
+            border: none;
+            background: #eee;
+
+            padding: 12px 16px;
+            border-radius: 10px;
+
+            cursor: pointer;
+        }
+
+
+        /* IPAD / SMALL SCREEN */
+
+        @media (max-width: 900px) {
+
+            .summary {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div>
+
+        <h1>📊 Sales Dashboard</h1>
+
+        <p id="todayDate"></p>
+
+    </div>
+
+
+    <button
+        class="back-button"
+        onclick="window.location.href='index.html'"
+    >
+        ← Back to Cashier
+    </button>
+
+</header>
+
+
+<main>
+
+
+    <!-- SUMMARY -->
+
+    <section class="summary">
+
+        <div class="card">
+
+            <p>TODAY'S SALES</p>
+
+            <h2 id="revenue">
+                $0.00
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>ORDERS TODAY</p>
+
+            <h2 id="orders">
+                0
+            </h2>
+
+        </div>
+
+
+        <div class="card">
+
+            <p>ITEMS SOLD</p>
+
+            <h2 id="itemsSold">
+                0
+            </h2>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="dashboard-grid">
+
+
+        <!-- ITEM BREAKDOWN -->
+
+        <div class="panel">
+
+            <h2>Items Sold Today</h2>
+
+            <div id="itemBreakdown"></div>
+
+        </div>
+
+
+
+        <!-- TRANSACTION HISTORY -->
+
+        <div class="panel">
+
+            <h2>Transaction History</h2>
+
+            <div id="transactions"></div>
+
+        </div>
+
+
+    </section>
+
+
+    <button
+        class="clear-sales"
+        onclick="clearSales()"
+    >
+        Clear All Sales Data
+    </button>
+
+
+</main>
+
+
+
+<script>
+
+    // ==========================================
+    // LOAD SALES
+    // ==========================================
+
+    const sales =
+        JSON.parse(
+            localStorage.getItem("geraiSales")
+        ) || [];
+
+
+    const today =
+        new Date().toLocaleDateString();
+
+
+    document.getElementById("todayDate").textContent =
+        new Date().toLocaleDateString(
+            undefined,
+            {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            }
+        );
+
+
+    // ==========================================
+    // TODAY'S SALES
+    // ==========================================
+
+    const todaysSales =
+        sales.filter(sale => {
+
+            return new Date(sale.id)
+                .toLocaleDateString() === today;
+
+        });
+
+
+    // ==========================================
+    // TOTAL REVENUE
+    // ==========================================
+
+    const revenue =
+        todaysSales.reduce(
+            (total, sale) => total + sale.total,
+            0
+        );
+
+
+    document.getElementById("revenue").textContent =
+        "$" + revenue.toFixed(2);
+
+
+    // ==========================================
+    // ORDER COUNT
+    // ==========================================
+
+    document.getElementById("orders").textContent =
+        todaysSales.length;
+
+
+    // ==========================================
+    // ITEMS SOLD
+    // ==========================================
+
+    let totalItems = 0;
+
+    const itemCounts = {};
+
+
+    todaysSales.forEach(sale => {
+
+        sale.items.forEach(item => {
+
+            totalItems += item.quantity;
+
+
+            if (!itemCounts[item.name]) {
+
+                itemCounts[item.name] = 0;
+
+            }
+
+
+            itemCounts[item.name] +=
+                item.quantity;
+
+        });
+
+    });
+
+
+    document.getElementById("itemsSold").textContent =
+        totalItems;
+
+
+    // ==========================================
+    // ITEM BREAKDOWN
+    // ==========================================
+
+    const itemBreakdown =
+        document.getElementById("itemBreakdown");
+
+
+    if (Object.keys(itemCounts).length === 0) {
+
+        itemBreakdown.innerHTML =
+            `<div class="empty">
+                No items sold today.
+            </div>`;
+
+    } else {
+
+        const icons = {
+            "Normal Burger": "🍔",
+            "Special Burger": "🍔",
+            "BBQ Sausage": "🌭",
+            "Butter Jagung": "🌽",
+            "Cheese Jagung": "🌽",
+            "Peach Tea": "🍑"
+        };
+
+
+        Object.entries(itemCounts)
+            .sort((a, b) => b[1] - a[1])
+            .forEach(([name, quantity]) => {
+
+                const row =
+                    document.createElement("div");
+
+                row.className = "item-row";
+
+
+                row.innerHTML = `
+
+                    <div class="item-name">
+
+                        ${icons[name] || "🍴"}
+                        ${name}
+
+                    </div>
+
+                    <div class="item-count">
+
+                        ${quantity}
+
+                    </div>
+
+                `;
+
+
+                itemBreakdown.appendChild(row);
+
+            });
+
+    }
+
+
+    // ==========================================
+    // TRANSACTION HISTORY
+    // ==========================================
+
+    const transactions =
+        document.getElementById("transactions");
+
+
+    if (todaysSales.length === 0) {
+
+        transactions.innerHTML =
+            `<div class="empty">
+                No transactions yet.
+            </div>`;
+
+    } else {
+
+        [...todaysSales]
+            .reverse()
+            .forEach((sale, index) => {
+
+
+                let itemQuantity = 0;
+
+
+                sale.items.forEach(item => {
+
+                    itemQuantity +=
+                        item.quantity;
+
+                });
+
+
+                const transaction =
+                    document.createElement("div");
+
+
+                transaction.className =
+                    "transaction";
+
+
+                const time =
+                    new Date(sale.id)
+                        .toLocaleTimeString(
+                            [],
+                            {
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            }
+                        );
+
+
+                transaction.innerHTML = `
+
+                    <div class="transaction-top">
+
+                        <div class="transaction-number">
+
+                            Order #${todaysSales.length - index}
+
+                        </div>
+
+
+                        <div class="transaction-total">
+
+                            $${sale.total.toFixed(2)}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="transaction-details">
+
+                        ${time}
+                        •
+                        ${itemQuantity} item${itemQuantity !== 1 ? "s" : ""}
+                        •
+                        Cash $${sale.cash.toFixed(2)}
+                        •
+                        Change $${sale.change.toFixed(2)}
+
+                    </div>
+
+                `;
+
+
+                transactions.appendChild(
+                    transaction
+                );
+
+            });
+
+    }
+
+
+    // ==========================================
+    // CLEAR SALES DATA
+    // ==========================================
+
+    function clearSales() {
+
+        const confirmation =
+            confirm(
+                "Are you sure you want to delete ALL sales data?"
+            );
+
+
+        if (!confirmation) {
+
+            return;
+
+        }
+
+
+        localStorage.removeItem(
+            "geraiSales"
+        );
+
+
+        location.reload();
+
+    }
+
+</script>
+
+
+</body>
+
+</html>

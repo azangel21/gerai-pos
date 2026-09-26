@@ -2,14 +2,12 @@
 <html lang="en">
 
 <head>
-
 <meta charset="UTF-8">
 
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
 <title>Gerai POS - Orders & Sales</title>
-
 
 <style>
 
@@ -20,32 +18,22 @@
 }
 
 body {
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     background: #f4f5f7;
-
     color: #222;
 }
-
 
 /* HEADER */
 
 header {
     background: white;
-
     padding: 20px 30px;
 
     display: flex;
-
     justify-content: space-between;
     align-items: center;
 
-    border-bottom:
-        1px solid #ddd;
+    border-bottom: 1px solid #ddd;
 }
 
 header h1 {
@@ -54,69 +42,51 @@ header h1 {
 
 header p {
     color: #777;
-
     margin-top: 4px;
 }
 
 .back-button {
     border: none;
-
     background: #222;
-
     color: white;
 
     padding: 14px 20px;
-
     border-radius: 12px;
 
     font-weight: 650;
-
     cursor: pointer;
 }
-
 
 /* MAIN */
 
 main {
     max-width: 1300px;
-
     margin: auto;
-
     padding: 25px 30px;
 }
-
 
 /* FILTERS */
 
 .filters {
     background: white;
-
     padding: 15px;
-
     border-radius: 16px;
-
     margin-bottom: 20px;
 
     display: flex;
-
     gap: 10px;
-
     flex-wrap: wrap;
-
     align-items: center;
 }
 
 .filter-button {
     border: none;
-
     background: #eee;
 
     padding: 11px 16px;
-
     border-radius: 10px;
 
     font-size: 14px;
-
     font-weight: 600;
 
     cursor: pointer;
@@ -124,113 +94,81 @@ main {
 
 .filter-button.active {
     background: #222;
-
     color: white;
 }
 
 .date-input {
     border: 1px solid #ddd;
-
     padding: 10px 12px;
-
     border-radius: 10px;
-
     font-size: 14px;
 }
 
-
-/* STATUS FILTER */
-
 .status-filters {
     display: flex;
-
     gap: 8px;
-
     margin-left: auto;
 }
 
-
-/* CARDS */
+/* SUMMARY */
 
 .summary {
     display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 15px;
-
     margin-bottom: 20px;
 }
 
 .card {
     background: white;
-
     padding: 21px;
-
     border-radius: 17px;
 
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.04);
+    box-shadow: 0 3px 12px rgba(0,0,0,.04);
 }
 
 .card p {
     color: #777;
-
     font-size: 12px;
-
     font-weight: 700;
-
     letter-spacing: .4px;
 }
 
 .card h2 {
     font-size: 29px;
-
     margin-top: 7px;
 }
 
-
-/* GRID */
+/* DASHBOARD */
 
 .dashboard-grid {
     display: grid;
-
-    grid-template-columns:
-        .8fr 1.4fr;
-
+    grid-template-columns: .8fr 1.4fr;
     gap: 20px;
 }
 
 .panel {
     background: white;
-
     padding: 22px;
-
     border-radius: 18px;
 
-    box-shadow:
-        0 3px 12px rgba(0,0,0,.04);
+    box-shadow: 0 3px 12px rgba(0,0,0,.04);
 }
 
 .panel h2 {
     margin-bottom: 18px;
-
     font-size: 19px;
 }
 
-
-/* ITEM STATS */
+/* ITEMS */
 
 .item-row {
     display: flex;
-
     justify-content: space-between;
 
     padding: 13px 0;
-
-    border-bottom:
-        1px solid #eee;
+    border-bottom: 1px solid #eee;
 }
 
 .item-name {
@@ -239,32 +177,25 @@ main {
 
 .item-count {
     background: #eee;
-
     padding: 5px 11px;
 
     border-radius: 9px;
-
     font-weight: 700;
 }
-
 
 /* ORDERS */
 
 .order {
     border: 1px solid #eee;
-
     border-radius: 14px;
 
     padding: 16px;
-
     margin-bottom: 12px;
 }
 
 .order-header {
     display: flex;
-
     justify-content: space-between;
-
     align-items: flex-start;
 
     gap: 10px;
@@ -272,15 +203,12 @@ main {
 
 .order-number {
     font-weight: 750;
-
     font-size: 16px;
 }
 
 .order-time {
     color: #888;
-
     font-size: 12px;
-
     margin-top: 4px;
 }
 
@@ -288,45 +216,36 @@ main {
     display: inline-block;
 
     padding: 6px 10px;
-
     border-radius: 20px;
 
     font-size: 12px;
-
     font-weight: 750;
 }
 
 .status-paid {
     background: #dcf7e5;
-
     color: #16743b;
 }
 
 .status-pending {
     background: #fff0cf;
-
     color: #8a5d00;
 }
-
 
 /* ORDER ITEMS */
 
 .order-items {
     margin-top: 13px;
-
     padding-top: 12px;
 
-    border-top:
-        1px solid #eee;
+    border-top: 1px solid #eee;
 }
 
 .order-item {
     display: flex;
-
     justify-content: space-between;
 
     gap: 15px;
-
     padding: 5px 0;
 
     font-size: 14px;
@@ -334,68 +253,88 @@ main {
 
 .order-addon {
     color: #777;
-
     font-size: 12px;
 
     margin: 2px 0 5px 15px;
 }
 
+/* ORDER FOOTER */
+
 .order-footer {
     margin-top: 12px;
-
     padding-top: 12px;
 
-    border-top:
-        1px solid #eee;
+    border-top: 1px solid #eee;
 
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
+
+    gap: 10px;
 }
 
 .order-total {
     font-size: 19px;
-
     font-weight: 750;
 }
+
+.order-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    justify-content: flex-end;
+}
+
+/* MARK PAID */
 
 .mark-paid {
     border: none;
 
     background: #222;
-
     color: white;
 
     padding: 10px 14px;
-
     border-radius: 10px;
 
     font-weight: 650;
-
     cursor: pointer;
 }
 
+/* DELETE */
+
+.delete-order {
+    border: none;
+
+    background: #ffe8e8;
+    color: #b42318;
+
+    padding: 10px 14px;
+    border-radius: 10px;
+
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.delete-order:active,
+.mark-paid:active {
+    transform: scale(.97);
+}
 
 /* EMPTY */
 
 .empty {
     color: #999;
-
     text-align: center;
-
     padding: 45px 10px;
 }
-
 
 /* IPAD */
 
 @media (max-width: 950px) {
 
     .summary {
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .dashboard-grid {
@@ -406,31 +345,23 @@ main {
         margin-left: 0;
         width: 100%;
     }
-
 }
 
 </style>
-
 </head>
 
 
 <body>
 
-
 <header>
 
     <div>
-
-        <h1>
-            📋 Orders & Sales
-        </h1>
+        <h1>📋 Orders & Sales</h1>
 
         <p id="viewTitle">
             Today's orders
         </p>
-
     </div>
-
 
     <button
         class="back-button"
@@ -445,38 +376,27 @@ main {
 
 <main>
 
-
-<!-- DATE FILTER -->
+<!-- FILTERS -->
 
 <div class="filters">
 
     <button
-        id="todayButton"
         class="filter-button active"
         onclick="setDateFilter('today', this)">
-
         Today
-
     </button>
-
 
     <button
         class="filter-button"
         onclick="setDateFilter('yesterday', this)">
-
         Yesterday
-
     </button>
-
 
     <button
         class="filter-button"
         onclick="setDateFilter('all', this)">
-
         All Time
-
     </button>
-
 
     <input
         id="datePicker"
@@ -484,32 +404,24 @@ main {
         type="date"
         onchange="chooseDate()">
 
-
     <div class="status-filters">
 
         <button
-            id="allStatus"
             class="filter-button active"
             onclick="setStatusFilter('All', this)">
-
             All
-
         </button>
 
         <button
             class="filter-button"
             onclick="setStatusFilter('Pending', this)">
-
             Pending
-
         </button>
 
         <button
             class="filter-button"
             onclick="setStatusFilter('Paid', this)">
-
             Paid
-
         </button>
 
     </div>
@@ -517,60 +429,34 @@ main {
 </div>
 
 
-
 <!-- SUMMARY -->
 
 <section class="summary">
 
     <div class="card">
-
         <p>PAID SALES</p>
-
-        <h2 id="paidSales">
-            $0.00
-        </h2>
-
+        <h2 id="paidSales">$0.00</h2>
     </div>
 
-
     <div class="card">
-
         <p>TOTAL ORDERS</p>
-
-        <h2 id="totalOrders">
-            0
-        </h2>
-
+        <h2 id="totalOrders">0</h2>
     </div>
 
-
     <div class="card">
-
         <p>PAID ORDERS</p>
-
-        <h2 id="paidOrders">
-            0
-        </h2>
-
+        <h2 id="paidOrders">0</h2>
     </div>
 
-
     <div class="card">
-
         <p>PENDING ORDERS</p>
-
-        <h2 id="pendingOrders">
-            0
-        </h2>
-
+        <h2 id="pendingOrders">0</h2>
     </div>
 
 </section>
 
 
-
 <section class="dashboard-grid">
-
 
     <div class="panel">
 
@@ -589,68 +475,50 @@ main {
 
     </div>
 
-
 </section>
 
-
 </main>
-
 
 
 <script>
 
 // ==========================================
-// MIGRATE OLD DATA
+// MIGRATE OLD SALES
 // ==========================================
 
 function migrateOldSales() {
 
     const alreadyMigrated =
-        localStorage.getItem(
-            "geraiOldSalesMigrated"
-        );
-
+        localStorage.getItem("geraiOldSalesMigrated");
 
     if (alreadyMigrated === "yes") {
         return;
     }
 
-
     const oldSales =
         JSON.parse(
-            localStorage.getItem(
-                "geraiSales"
-            )
+            localStorage.getItem("geraiSales")
         ) || [];
-
 
     const orders =
         JSON.parse(
-            localStorage.getItem(
-                "geraiOrders"
-            )
+            localStorage.getItem("geraiOrders")
         ) || [];
-
 
     oldSales.forEach(oldSale => {
 
         const exists =
             orders.some(
-                order =>
-                    order.id ===
-                    oldSale.id
+                order => order.id === oldSale.id
             );
-
 
         if (!exists) {
 
             orders.push({
 
-                id:
-                    oldSale.id,
+                id: oldSale.id,
 
-                orderNumber:
-                    null,
+                orderNumber: null,
 
                 date:
                     oldSale.date ||
@@ -662,15 +530,11 @@ function migrateOldSales() {
                     oldSale.items || [],
 
                 total:
-                    Number(
-                        oldSale.total
-                    ) || 0,
+                    Number(oldSale.total) || 0,
 
-                status:
-                    "Paid",
+                status: "Paid",
 
-                migrated:
-                    true
+                migrated: true
 
             });
 
@@ -680,21 +544,16 @@ function migrateOldSales() {
 
 
     orders.sort(
-        (a,b) =>
-            a.id - b.id
+        (a, b) => a.id - b.id
     );
 
 
     orders.forEach(
-        (order,index) => {
+        (order, index) => {
 
-            if (
-                !order.orderNumber
-            ) {
-
+            if (!order.orderNumber) {
                 order.orderNumber =
                     index + 1;
-
             }
 
         }
@@ -715,10 +574,7 @@ function migrateOldSales() {
         ) || 0;
 
 
-    if (
-        orders.length >
-        oldCounter
-    ) {
+    if (orders.length > oldCounter) {
 
         localStorage.setItem(
             "geraiOrderCounter",
@@ -742,14 +598,11 @@ migrateOldSales();
 // STATE
 // ==========================================
 
-let dateFilter =
-    "today";
+let dateFilter = "today";
 
-let chosenDate =
-    null;
+let chosenDate = null;
 
-let statusFilter =
-    "All";
+let statusFilter = "All";
 
 
 // ==========================================
@@ -763,31 +616,36 @@ function getOrders() {
             "geraiOrders"
         )
     ) || [];
+
 }
 
 
 function getOrderDate(order) {
 
     return new Date(order.id);
+
 }
 
 
 function sameDay(date1, date2) {
 
     return (
+
         date1.getFullYear() ===
-            date2.getFullYear()
+        date2.getFullYear()
 
         &&
 
         date1.getMonth() ===
-            date2.getMonth()
+        date2.getMonth()
 
         &&
 
         date1.getDate() ===
-            date2.getDate()
+        date2.getDate()
+
     );
+
 }
 
 
@@ -800,11 +658,9 @@ function setDateFilter(
     button
 ) {
 
-    dateFilter =
-        filter;
+    dateFilter = filter;
 
-    chosenDate =
-        null;
+    chosenDate = null;
 
 
     document
@@ -818,13 +674,13 @@ function setDateFilter(
         .querySelectorAll(
             ".filters > .filter-button"
         )
-        .forEach(btn =>
+        .forEach(btn => {
 
             btn.classList.remove(
                 "active"
-            )
+            );
 
-        );
+        });
 
 
     button.classList.add(
@@ -833,6 +689,7 @@ function setDateFilter(
 
 
     renderDashboard();
+
 }
 
 
@@ -851,36 +708,36 @@ function chooseDate() {
     }
 
 
-    /*
-       Add T00:00:00 so the date is
-       interpreted in local time.
-    */
+    const parts =
+        value.split("-");
+
 
     chosenDate =
         new Date(
-            value +
-            "T00:00:00"
+            Number(parts[0]),
+            Number(parts[1]) - 1,
+            Number(parts[2])
         );
 
 
-    dateFilter =
-        "chosen";
+    dateFilter = "chosen";
 
 
     document
         .querySelectorAll(
             ".filters > .filter-button"
         )
-        .forEach(btn =>
+        .forEach(btn => {
 
             btn.classList.remove(
                 "active"
-            )
+            );
 
-        );
+        });
 
 
     renderDashboard();
+
 }
 
 
@@ -893,21 +750,20 @@ function setStatusFilter(
     button
 ) {
 
-    statusFilter =
-        status;
+    statusFilter = status;
 
 
     document
         .querySelectorAll(
             ".status-filters .filter-button"
         )
-        .forEach(btn =>
+        .forEach(btn => {
 
             btn.classList.remove(
                 "active"
-            )
+            );
 
-        );
+        });
 
 
     button.classList.add(
@@ -916,6 +772,7 @@ function setStatusFilter(
 
 
     renderDashboard();
+
 }
 
 
@@ -925,13 +782,9 @@ function setStatusFilter(
 
 function getDateFilteredOrders() {
 
-    const orders =
-        getOrders();
+    const orders = getOrders();
 
-
-    const now =
-        new Date();
-
+    const now = new Date();
 
     let targetDate =
         new Date(now);
@@ -956,8 +809,7 @@ function getDateFilteredOrders() {
 
 
         if (
-            dateFilter ===
-            "all"
+            dateFilter === "all"
         ) {
 
             return true;
@@ -966,8 +818,7 @@ function getDateFilteredOrders() {
 
 
         if (
-            dateFilter ===
-            "chosen"
+            dateFilter === "chosen"
         ) {
 
             return sameDay(
@@ -984,24 +835,23 @@ function getDateFilteredOrders() {
         );
 
     });
+
 }
 
 
 // ==========================================
-// MARK PAID
+// MARK AS PAID
 // ==========================================
 
 function markPaid(orderId) {
 
-    const orders =
-        getOrders();
+    const orders = getOrders();
 
 
     const order =
         orders.find(
             order =>
-                order.id ===
-                orderId
+                order.id === orderId
         );
 
 
@@ -1010,12 +860,20 @@ function markPaid(orderId) {
     }
 
 
-    order.status =
-        "Paid";
+    const confirmation =
+        confirm(
+            `Mark Order #${order.orderNumber} as paid?`
+        );
 
 
-    order.paidAt =
-        Date.now();
+    if (!confirmation) {
+        return;
+    }
+
+
+    order.status = "Paid";
+
+    order.paidAt = Date.now();
 
 
     localStorage.setItem(
@@ -1025,11 +883,75 @@ function markPaid(orderId) {
 
 
     renderDashboard();
+
 }
 
 
 // ==========================================
-// RENDER
+// DELETE ORDER
+// ==========================================
+
+function deleteOrder(orderId) {
+
+    const orders = getOrders();
+
+
+    const order =
+        orders.find(
+            order =>
+                order.id === orderId
+        );
+
+
+    if (!order) {
+        return;
+    }
+
+
+    const confirmation =
+        confirm(
+            `Delete Order #${order.orderNumber}?\n\n` +
+            `Total: $${Number(order.total).toFixed(2)}\n\n` +
+            `This will permanently remove this order from your sales records.`
+        );
+
+
+    if (!confirmation) {
+        return;
+    }
+
+
+    const updatedOrders =
+        orders.filter(
+            order =>
+                order.id !== orderId
+        );
+
+
+    localStorage.setItem(
+        "geraiOrders",
+        JSON.stringify(updatedOrders)
+    );
+
+
+    /*
+       IMPORTANT:
+       We do NOT reduce geraiOrderCounter.
+
+       Example:
+       Delete Order #25
+       Next order will still be #26,
+       not #25 again.
+    */
+
+
+    renderDashboard();
+
+}
+
+
+// ==========================================
+// RENDER DASHBOARD
 // ==========================================
 
 function renderDashboard() {
@@ -1038,22 +960,17 @@ function renderDashboard() {
         getDateFilteredOrders();
 
 
-    // SUMMARY ALWAYS REPRESENTS
-    // THE SELECTED DATE
-
     const paidOrders =
         dateOrders.filter(
             order =>
-                order.status ===
-                "Paid"
+                order.status === "Paid"
         );
 
 
     const pendingOrders =
         dateOrders.filter(
             order =>
-                order.status ===
-                "Pending"
+                order.status === "Pending"
         );
 
 
@@ -1072,9 +989,8 @@ function renderDashboard() {
             "paidSales"
         )
         .textContent =
-
-        "$" +
-        paidSales.toFixed(2);
+            "$" +
+            paidSales.toFixed(2);
 
 
     document
@@ -1101,9 +1017,8 @@ function renderDashboard() {
             pendingOrders.length;
 
 
-    // STATUS FILTER
-
     const visibleOrders =
+
         statusFilter === "All"
 
             ? dateOrders
@@ -1128,6 +1043,7 @@ function renderDashboard() {
     updateTitle(
         dateOrders.length
     );
+
 }
 
 
@@ -1168,7 +1084,7 @@ function renderItems(orders) {
 
 
             /*
-               Count each burger add-on too.
+               Also track add-ons.
             */
 
             if (
@@ -1206,7 +1122,7 @@ function renderItems(orders) {
     const entries =
         Object.entries(counts)
             .sort(
-                (a,b) =>
+                (a, b) =>
                     b[1] - a[1]
             );
 
@@ -1260,7 +1176,7 @@ function renderItems(orders) {
 
 
     entries.forEach(
-        ([name,count]) => {
+        ([name, count]) => {
 
 
             const row =
@@ -1282,6 +1198,7 @@ function renderItems(orders) {
 
                 </div>
 
+
                 <div class="item-count">
 
                     ${count}
@@ -1297,6 +1214,7 @@ function renderItems(orders) {
 
         }
     );
+
 }
 
 
@@ -1319,9 +1237,7 @@ function renderOrders(orders) {
         container.innerHTML = `
 
             <div class="empty">
-
                 No orders found.
-
             </div>
 
         `;
@@ -1335,7 +1251,7 @@ function renderOrders(orders) {
 
     [...orders]
         .sort(
-            (a,b) =>
+            (a, b) =>
                 b.id - a.id
         )
         .forEach(order => {
@@ -1347,13 +1263,12 @@ function renderOrders(orders) {
                 );
 
 
-            box.className =
-                "order";
+            box.className = "order";
 
 
             const statusClass =
-                order.status ===
-                "Paid"
+
+                order.status === "Paid"
 
                     ? "status-paid"
 
@@ -1361,82 +1276,80 @@ function renderOrders(orders) {
 
 
             const date =
-                new Date(
-                    order.id
-                );
+                new Date(order.id);
 
 
             let itemsHTML = "";
 
 
-            order.items
-                .forEach(item => {
+            order.items.forEach(item => {
 
 
-                    const qty =
-                        Number(
-                            item.quantity
-                        ) || 0;
+                const qty =
+                    Number(
+                        item.quantity
+                    ) || 0;
 
 
-                    const itemPrice =
-                        Number(
-                            item.price
-                        ) || 0;
+                const itemPrice =
+                    Number(
+                        item.price
+                    ) || 0;
+
+
+                itemsHTML += `
+
+                    <div class="order-item">
+
+                        <span>
+
+                            ${item.name}
+                            × ${qty}
+
+                        </span>
+
+
+                        <strong>
+
+                            $${(
+                                itemPrice *
+                                qty
+                            ).toFixed(2)}
+
+                        </strong>
+
+                    </div>
+
+                `;
+
+
+                if (
+                    item.addons &&
+                    item.addons.length
+                ) {
+
+                    const addonText =
+                        item.addons
+                            .map(
+                                addon =>
+                                    `+ ${addon.name}`
+                            )
+                            .join(", ");
 
 
                     itemsHTML += `
 
-                        <div class="order-item">
+                        <div class="order-addon">
 
-                            <span>
-
-                                ${item.name}
-                                × ${qty}
-
-                            </span>
-
-                            <strong>
-
-                                $${(
-                                    itemPrice *
-                                    qty
-                                ).toFixed(2)}
-
-                            </strong>
+                            ${addonText}
 
                         </div>
 
                     `;
 
+                }
 
-                    if (
-                        item.addons &&
-                        item.addons.length
-                    ) {
-
-                        const addonText =
-                            item.addons
-                                .map(
-                                    addon =>
-                                        `+ ${addon.name}`
-                                )
-                                .join(", ");
-
-
-                        itemsHTML += `
-
-                            <div class="order-addon">
-
-                                ${addonText}
-
-                            </div>
-
-                        `;
-
-                    }
-
-                });
+            });
 
 
             box.innerHTML = `
@@ -1450,6 +1363,7 @@ function renderOrders(orders) {
                             Order #${order.orderNumber}
 
                         </div>
+
 
                         <div class="order-time">
 
@@ -1508,24 +1422,39 @@ function renderOrders(orders) {
                     </div>
 
 
-                    ${
-                        order.status ===
-                        "Pending"
+                    <div class="order-actions">
 
-                            ?
 
-                            `<button
-                                class="mark-paid"
-                                onclick="markPaid(${order.id})">
+                        <button
+                            class="delete-order"
+                            onclick="deleteOrder(${order.id})">
 
-                                ✓ Mark as Paid
+                            🗑 Delete Order
 
-                            </button>`
+                        </button>
 
-                            :
 
-                            ""
-                    }
+                        ${
+                            order.status ===
+                            "Pending"
+
+                                ?
+
+                                `<button
+                                    class="mark-paid"
+                                    onclick="markPaid(${order.id})">
+
+                                    ✓ Mark as Paid
+
+                                </button>`
+
+                                :
+
+                                ""
+                        }
+
+
+                    </div>
 
                 </div>
 
@@ -1537,6 +1466,7 @@ function renderOrders(orders) {
             );
 
         });
+
 }
 
 
@@ -1550,19 +1480,16 @@ function updateTitle(count) {
 
 
     if (
-        dateFilter ===
-        "today"
+        dateFilter === "today"
     ) {
 
-        text =
-            "Today's orders";
+        text = "Today's orders";
 
     }
 
 
     else if (
-        dateFilter ===
-        "yesterday"
+        dateFilter === "yesterday"
     ) {
 
         text =
@@ -1572,12 +1499,10 @@ function updateTitle(count) {
 
 
     else if (
-        dateFilter ===
-        "all"
+        dateFilter === "all"
     ) {
 
-        text =
-            "All orders";
+        text = "All orders";
 
     }
 
@@ -1610,6 +1535,7 @@ function updateTitle(count) {
         .textContent =
 
         `${text} • ${count} order${count !== 1 ? "s" : ""}`;
+
 }
 
 
@@ -1620,7 +1546,6 @@ function updateTitle(count) {
 renderDashboard();
 
 </script>
-
 
 </body>
 </html>

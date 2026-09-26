@@ -2,223 +2,414 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Gerai POS - Sales</title>
+<meta charset="UTF-8">
 
-    <style>
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f4f5f7;
-            color: #222;
-        }
-
-        /* HEADER */
-
-        header {
-            background: white;
-            padding: 20px 30px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            border-bottom: 1px solid #ddd;
-        }
-
-        header h1 {
-            font-size: 25px;
-        }
-
-        header p {
-            color: #777;
-            margin-top: 4px;
-        }
-
-        .back-button {
-            border: none;
-            background: #222;
-            color: white;
-
-            padding: 14px 20px;
-            border-radius: 12px;
-
-            font-size: 15px;
-            font-weight: 600;
-
-            cursor: pointer;
-        }
+<title>Gerai POS - Orders & Sales</title>
 
 
-        /* MAIN */
+<style>
 
-        main {
-            padding: 25px 30px;
-            max-width: 1300px;
-            margin: auto;
-        }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
+body {
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 
-        /* SUMMARY CARDS */
+    background: #f4f5f7;
 
-        .summary {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 18px;
-
-            margin-bottom: 30px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 24px;
-
-            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-        }
-
-        .card p {
-            color: #777;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .card h2 {
-            font-size: 32px;
-            margin-top: 8px;
-        }
+    color: #222;
+}
 
 
-        /* CONTENT */
+/* HEADER */
 
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 20px;
-        }
+header {
+    background: white;
 
-        .panel {
-            background: white;
-            border-radius: 18px;
-            padding: 22px;
+    padding: 20px 30px;
 
-            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-        }
+    display: flex;
 
-        .panel h2 {
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
+    justify-content: space-between;
+    align-items: center;
 
+    border-bottom:
+        1px solid #ddd;
+}
 
-        /* ITEM SALES */
+header h1 {
+    font-size: 25px;
+}
 
-        .item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+header p {
+    color: #777;
 
-            padding: 14px 0;
+    margin-top: 4px;
+}
 
-            border-bottom: 1px solid #eee;
-        }
+.back-button {
+    border: none;
 
-        .item-row:last-child {
-            border-bottom: none;
-        }
+    background: #222;
 
-        .item-name {
-            font-weight: 600;
-        }
+    color: white;
 
-        .item-count {
-            background: #eee;
-            padding: 7px 12px;
-            border-radius: 10px;
-            font-weight: bold;
-        }
+    padding: 14px 20px;
+
+    border-radius: 12px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+}
 
 
-        /* TRANSACTIONS */
+/* MAIN */
 
-        .transaction {
-            padding: 15px 0;
-            border-bottom: 1px solid #eee;
-        }
+main {
+    max-width: 1300px;
 
-        .transaction:last-child {
-            border-bottom: none;
-        }
+    margin: auto;
 
-        .transaction-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .transaction-number {
-            font-weight: 700;
-        }
-
-        .transaction-total {
-            font-size: 18px;
-            font-weight: 700;
-        }
-
-        .transaction-details {
-            color: #777;
-            font-size: 13px;
-            margin-top: 5px;
-        }
+    padding: 25px 30px;
+}
 
 
-        /* EMPTY */
+/* FILTERS */
 
-        .empty {
-            color: #999;
-            text-align: center;
-            padding: 40px 10px;
-        }
+.filters {
+    background: white;
+
+    padding: 15px;
+
+    border-radius: 16px;
+
+    margin-bottom: 20px;
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+}
+
+.filter-button {
+    border: none;
+
+    background: #eee;
+
+    padding: 11px 16px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.filter-button.active {
+    background: #222;
+
+    color: white;
+}
+
+.date-input {
+    border: 1px solid #ddd;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
 
 
-        /* CLEAR SALES */
+/* STATUS FILTER */
 
-        .clear-sales {
-            margin-top: 25px;
+.status-filters {
+    display: flex;
 
-            border: none;
-            background: #eee;
+    gap: 8px;
 
-            padding: 12px 16px;
-            border-radius: 10px;
-
-            cursor: pointer;
-        }
+    margin-left: auto;
+}
 
 
-        /* IPAD / SMALL SCREEN */
+/* CARDS */
 
-        @media (max-width: 900px) {
+.summary {
+    display: grid;
 
-            .summary {
-                grid-template-columns: repeat(3, 1fr);
-            }
+    grid-template-columns:
+        repeat(4, 1fr);
 
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
+    gap: 15px;
 
-        }
+    margin-bottom: 20px;
+}
 
-    </style>
+.card {
+    background: white;
+
+    padding: 21px;
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.04);
+}
+
+.card p {
+    color: #777;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+}
+
+.card h2 {
+    font-size: 29px;
+
+    margin-top: 7px;
+}
+
+
+/* GRID */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        .8fr 1.4fr;
+
+    gap: 20px;
+}
+
+.panel {
+    background: white;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.04);
+}
+
+.panel h2 {
+    margin-bottom: 18px;
+
+    font-size: 19px;
+}
+
+
+/* ITEM STATS */
+
+.item-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 13px 0;
+
+    border-bottom:
+        1px solid #eee;
+}
+
+.item-name {
+    font-weight: 600;
+}
+
+.item-count {
+    background: #eee;
+
+    padding: 5px 11px;
+
+    border-radius: 9px;
+
+    font-weight: 700;
+}
+
+
+/* ORDERS */
+
+.order {
+    border: 1px solid #eee;
+
+    border-radius: 14px;
+
+    padding: 16px;
+
+    margin-bottom: 12px;
+}
+
+.order-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 10px;
+}
+
+.order-number {
+    font-weight: 750;
+
+    font-size: 16px;
+}
+
+.order-time {
+    color: #888;
+
+    font-size: 12px;
+
+    margin-top: 4px;
+}
+
+.status {
+    display: inline-block;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 750;
+}
+
+.status-paid {
+    background: #dcf7e5;
+
+    color: #16743b;
+}
+
+.status-pending {
+    background: #fff0cf;
+
+    color: #8a5d00;
+}
+
+
+/* ORDER ITEMS */
+
+.order-items {
+    margin-top: 13px;
+
+    padding-top: 12px;
+
+    border-top:
+        1px solid #eee;
+}
+
+.order-item {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 5px 0;
+
+    font-size: 14px;
+}
+
+.order-addon {
+    color: #777;
+
+    font-size: 12px;
+
+    margin: 2px 0 5px 15px;
+}
+
+.order-footer {
+    margin-top: 12px;
+
+    padding-top: 12px;
+
+    border-top:
+        1px solid #eee;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.order-total {
+    font-size: 19px;
+
+    font-weight: 750;
+}
+
+.mark-paid {
+    border: none;
+
+    background: #222;
+
+    color: white;
+
+    padding: 10px 14px;
+
+    border-radius: 10px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+
+/* EMPTY */
+
+.empty {
+    color: #999;
+
+    text-align: center;
+
+    padding: 45px 10px;
+}
+
+
+/* IPAD */
+
+@media (max-width: 950px) {
+
+    .summary {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .status-filters {
+        margin-left: 0;
+        width: 100%;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -230,18 +421,23 @@
 
     <div>
 
-        <h1>📊 Sales Dashboard</h1>
+        <h1>
+            📋 Orders & Sales
+        </h1>
 
-        <p id="todayDate"></p>
+        <p id="viewTitle">
+            Today's orders
+        </p>
 
     </div>
 
 
     <button
         class="back-button"
-        onclick="window.location.href='index.html'"
-    >
-        ← Back to Cashier
+        onclick="window.location.href='index.html'">
+
+        ← Cashier
+
     </button>
 
 </header>
@@ -250,81 +446,151 @@
 <main>
 
 
-    <!-- SUMMARY -->
+<!-- DATE FILTER -->
 
-    <section class="summary">
+<div class="filters">
 
-        <div class="card">
+    <button
+        id="todayButton"
+        class="filter-button active"
+        onclick="setDateFilter('today', this)">
 
-            <p>TODAY'S SALES</p>
+        Today
 
-            <h2 id="revenue">
-                $0.00
-            </h2>
-
-        </div>
-
-
-        <div class="card">
-
-            <p>ORDERS TODAY</p>
-
-            <h2 id="orders">
-                0
-            </h2>
-
-        </div>
-
-
-        <div class="card">
-
-            <p>ITEMS SOLD</p>
-
-            <h2 id="itemsSold">
-                0
-            </h2>
-
-        </div>
-
-    </section>
-
-
-
-    <section class="dashboard-grid">
-
-
-        <!-- ITEM BREAKDOWN -->
-
-        <div class="panel">
-
-            <h2>Items Sold Today</h2>
-
-            <div id="itemBreakdown"></div>
-
-        </div>
-
-
-
-        <!-- TRANSACTION HISTORY -->
-
-        <div class="panel">
-
-            <h2>Transaction History</h2>
-
-            <div id="transactions"></div>
-
-        </div>
-
-
-    </section>
+    </button>
 
 
     <button
-        class="clear-sales"
-        onclick="clearSales()"
-    >
-        Clear All Sales Data
+        class="filter-button"
+        onclick="setDateFilter('yesterday', this)">
+
+        Yesterday
+
     </button>
+
+
+    <button
+        class="filter-button"
+        onclick="setDateFilter('all', this)">
+
+        All Time
+
+    </button>
+
+
+    <input
+        id="datePicker"
+        class="date-input"
+        type="date"
+        onchange="chooseDate()">
+
+
+    <div class="status-filters">
+
+        <button
+            id="allStatus"
+            class="filter-button active"
+            onclick="setStatusFilter('All', this)">
+
+            All
+
+        </button>
+
+        <button
+            class="filter-button"
+            onclick="setStatusFilter('Pending', this)">
+
+            Pending
+
+        </button>
+
+        <button
+            class="filter-button"
+            onclick="setStatusFilter('Paid', this)">
+
+            Paid
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- SUMMARY -->
+
+<section class="summary">
+
+    <div class="card">
+
+        <p>PAID SALES</p>
+
+        <h2 id="paidSales">
+            $0.00
+        </h2>
+
+    </div>
+
+
+    <div class="card">
+
+        <p>TOTAL ORDERS</p>
+
+        <h2 id="totalOrders">
+            0
+        </h2>
+
+    </div>
+
+
+    <div class="card">
+
+        <p>PAID ORDERS</p>
+
+        <h2 id="paidOrders">
+            0
+        </h2>
+
+    </div>
+
+
+    <div class="card">
+
+        <p>PENDING ORDERS</p>
+
+        <h2 id="pendingOrders">
+            0
+        </h2>
+
+    </div>
+
+</section>
+
+
+
+<section class="dashboard-grid">
+
+
+    <div class="panel">
+
+        <h2>Items Purchased</h2>
+
+        <div id="itemBreakdown"></div>
+
+    </div>
+
+
+    <div class="panel">
+
+        <h2>Order History</h2>
+
+        <div id="orderHistory"></div>
+
+    </div>
+
+
+</section>
 
 
 </main>
@@ -333,292 +599,1028 @@
 
 <script>
 
-    // ==========================================
-    // LOAD SALES
-    // ==========================================
+// ==========================================
+// MIGRATE OLD DATA
+// ==========================================
 
-    const sales =
-        JSON.parse(
-            localStorage.getItem("geraiSales")
-        ) || [];
+function migrateOldSales() {
 
-
-    const today =
-        new Date().toLocaleDateString();
-
-
-    document.getElementById("todayDate").textContent =
-        new Date().toLocaleDateString(
-            undefined,
-            {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric"
-            }
+    const alreadyMigrated =
+        localStorage.getItem(
+            "geraiOldSalesMigrated"
         );
 
 
-    // ==========================================
-    // TODAY'S SALES
-    // ==========================================
-
-    const todaysSales =
-        sales.filter(sale => {
-
-            return new Date(sale.id)
-                .toLocaleDateString() === today;
-
-        });
+    if (alreadyMigrated === "yes") {
+        return;
+    }
 
 
-    // ==========================================
-    // TOTAL REVENUE
-    // ==========================================
+    const oldSales =
+        JSON.parse(
+            localStorage.getItem(
+                "geraiSales"
+            )
+        ) || [];
 
-    const revenue =
-        todaysSales.reduce(
-            (total, sale) => total + sale.total,
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "geraiOrders"
+            )
+        ) || [];
+
+
+    oldSales.forEach(oldSale => {
+
+        const exists =
+            orders.some(
+                order =>
+                    order.id ===
+                    oldSale.id
+            );
+
+
+        if (!exists) {
+
+            orders.push({
+
+                id:
+                    oldSale.id,
+
+                orderNumber:
+                    null,
+
+                date:
+                    oldSale.date ||
+                    new Date(
+                        oldSale.id
+                    ).toLocaleString(),
+
+                items:
+                    oldSale.items || [],
+
+                total:
+                    Number(
+                        oldSale.total
+                    ) || 0,
+
+                status:
+                    "Paid",
+
+                migrated:
+                    true
+
+            });
+
+        }
+
+    });
+
+
+    orders.sort(
+        (a,b) =>
+            a.id - b.id
+    );
+
+
+    orders.forEach(
+        (order,index) => {
+
+            if (
+                !order.orderNumber
+            ) {
+
+                order.orderNumber =
+                    index + 1;
+
+            }
+
+        }
+    );
+
+
+    localStorage.setItem(
+        "geraiOrders",
+        JSON.stringify(orders)
+    );
+
+
+    const oldCounter =
+        parseInt(
+            localStorage.getItem(
+                "geraiOrderCounter"
+            )
+        ) || 0;
+
+
+    if (
+        orders.length >
+        oldCounter
+    ) {
+
+        localStorage.setItem(
+            "geraiOrderCounter",
+            orders.length
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "geraiOldSalesMigrated",
+        "yes"
+    );
+}
+
+
+migrateOldSales();
+
+
+// ==========================================
+// STATE
+// ==========================================
+
+let dateFilter =
+    "today";
+
+let chosenDate =
+    null;
+
+let statusFilter =
+    "All";
+
+
+// ==========================================
+// HELPERS
+// ==========================================
+
+function getOrders() {
+
+    return JSON.parse(
+        localStorage.getItem(
+            "geraiOrders"
+        )
+    ) || [];
+}
+
+
+function getOrderDate(order) {
+
+    return new Date(order.id);
+}
+
+
+function sameDay(date1, date2) {
+
+    return (
+        date1.getFullYear() ===
+            date2.getFullYear()
+
+        &&
+
+        date1.getMonth() ===
+            date2.getMonth()
+
+        &&
+
+        date1.getDate() ===
+            date2.getDate()
+    );
+}
+
+
+// ==========================================
+// DATE FILTER
+// ==========================================
+
+function setDateFilter(
+    filter,
+    button
+) {
+
+    dateFilter =
+        filter;
+
+    chosenDate =
+        null;
+
+
+    document
+        .getElementById(
+            "datePicker"
+        )
+        .value = "";
+
+
+    document
+        .querySelectorAll(
+            ".filters > .filter-button"
+        )
+        .forEach(btn =>
+
+            btn.classList.remove(
+                "active"
+            )
+
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    renderDashboard();
+}
+
+
+function chooseDate() {
+
+    const value =
+        document
+            .getElementById(
+                "datePicker"
+            )
+            .value;
+
+
+    if (!value) {
+        return;
+    }
+
+
+    /*
+       Add T00:00:00 so the date is
+       interpreted in local time.
+    */
+
+    chosenDate =
+        new Date(
+            value +
+            "T00:00:00"
+        );
+
+
+    dateFilter =
+        "chosen";
+
+
+    document
+        .querySelectorAll(
+            ".filters > .filter-button"
+        )
+        .forEach(btn =>
+
+            btn.classList.remove(
+                "active"
+            )
+
+        );
+
+
+    renderDashboard();
+}
+
+
+// ==========================================
+// STATUS FILTER
+// ==========================================
+
+function setStatusFilter(
+    status,
+    button
+) {
+
+    statusFilter =
+        status;
+
+
+    document
+        .querySelectorAll(
+            ".status-filters .filter-button"
+        )
+        .forEach(btn =>
+
+            btn.classList.remove(
+                "active"
+            )
+
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+
+    renderDashboard();
+}
+
+
+// ==========================================
+// FILTER ORDERS
+// ==========================================
+
+function getDateFilteredOrders() {
+
+    const orders =
+        getOrders();
+
+
+    const now =
+        new Date();
+
+
+    let targetDate =
+        new Date(now);
+
+
+    if (
+        dateFilter ===
+        "yesterday"
+    ) {
+
+        targetDate.setDate(
+            targetDate.getDate() - 1
+        );
+
+    }
+
+
+    return orders.filter(order => {
+
+        const orderDate =
+            getOrderDate(order);
+
+
+        if (
+            dateFilter ===
+            "all"
+        ) {
+
+            return true;
+
+        }
+
+
+        if (
+            dateFilter ===
+            "chosen"
+        ) {
+
+            return sameDay(
+                orderDate,
+                chosenDate
+            );
+
+        }
+
+
+        return sameDay(
+            orderDate,
+            targetDate
+        );
+
+    });
+}
+
+
+// ==========================================
+// MARK PAID
+// ==========================================
+
+function markPaid(orderId) {
+
+    const orders =
+        getOrders();
+
+
+    const order =
+        orders.find(
+            order =>
+                order.id ===
+                orderId
+        );
+
+
+    if (!order) {
+        return;
+    }
+
+
+    order.status =
+        "Paid";
+
+
+    order.paidAt =
+        Date.now();
+
+
+    localStorage.setItem(
+        "geraiOrders",
+        JSON.stringify(orders)
+    );
+
+
+    renderDashboard();
+}
+
+
+// ==========================================
+// RENDER
+// ==========================================
+
+function renderDashboard() {
+
+    const dateOrders =
+        getDateFilteredOrders();
+
+
+    // SUMMARY ALWAYS REPRESENTS
+    // THE SELECTED DATE
+
+    const paidOrders =
+        dateOrders.filter(
+            order =>
+                order.status ===
+                "Paid"
+        );
+
+
+    const pendingOrders =
+        dateOrders.filter(
+            order =>
+                order.status ===
+                "Pending"
+        );
+
+
+    const paidSales =
+        paidOrders.reduce(
+            (total, order) =>
+                total +
+                Number(order.total),
+
             0
         );
 
 
-    document.getElementById("revenue").textContent =
-        "$" + revenue.toFixed(2);
+    document
+        .getElementById(
+            "paidSales"
+        )
+        .textContent =
+
+        "$" +
+        paidSales.toFixed(2);
 
 
-    // ==========================================
-    // ORDER COUNT
-    // ==========================================
-
-    document.getElementById("orders").textContent =
-        todaysSales.length;
-
-
-    // ==========================================
-    // ITEMS SOLD
-    // ==========================================
-
-    let totalItems = 0;
-
-    const itemCounts = {};
+    document
+        .getElementById(
+            "totalOrders"
+        )
+        .textContent =
+            dateOrders.length;
 
 
-    todaysSales.forEach(sale => {
+    document
+        .getElementById(
+            "paidOrders"
+        )
+        .textContent =
+            paidOrders.length;
 
-        sale.items.forEach(item => {
 
-            totalItems += item.quantity;
+    document
+        .getElementById(
+            "pendingOrders"
+        )
+        .textContent =
+            pendingOrders.length;
 
 
-            if (!itemCounts[item.name]) {
+    // STATUS FILTER
 
-                itemCounts[item.name] = 0;
+    const visibleOrders =
+        statusFilter === "All"
+
+            ? dateOrders
+
+            : dateOrders.filter(
+                order =>
+                    order.status ===
+                    statusFilter
+            );
+
+
+    renderItems(
+        visibleOrders
+    );
+
+
+    renderOrders(
+        visibleOrders
+    );
+
+
+    updateTitle(
+        dateOrders.length
+    );
+}
+
+
+// ==========================================
+// ITEMS PURCHASED
+// ==========================================
+
+function renderItems(orders) {
+
+    const container =
+        document.getElementById(
+            "itemBreakdown"
+        );
+
+
+    const counts = {};
+
+
+    orders.forEach(order => {
+
+        order.items.forEach(item => {
+
+            const quantity =
+                Number(
+                    item.quantity
+                ) || 0;
+
+
+            if (!counts[item.name]) {
+
+                counts[item.name] = 0;
 
             }
 
 
-            itemCounts[item.name] +=
-                item.quantity;
+            counts[item.name] +=
+                quantity;
+
+
+            /*
+               Count each burger add-on too.
+            */
+
+            if (
+                item.addons &&
+                item.addons.length
+            ) {
+
+                item.addons
+                    .forEach(addon => {
+
+                        const key =
+                            "+ " +
+                            addon.name;
+
+
+                        if (!counts[key]) {
+
+                            counts[key] = 0;
+
+                        }
+
+
+                        counts[key] +=
+                            quantity;
+
+                    });
+
+            }
 
         });
 
     });
 
 
-    document.getElementById("itemsSold").textContent =
-        totalItems;
+    const entries =
+        Object.entries(counts)
+            .sort(
+                (a,b) =>
+                    b[1] - a[1]
+            );
 
 
-    // ==========================================
-    // ITEM BREAKDOWN
-    // ==========================================
+    if (
+        entries.length === 0
+    ) {
 
-    const itemBreakdown =
-        document.getElementById("itemBreakdown");
+        container.innerHTML = `
 
+            <div class="empty">
+                No items found.
+            </div>
 
-    if (Object.keys(itemCounts).length === 0) {
+        `;
 
-        itemBreakdown.innerHTML =
-            `<div class="empty">
-                No items sold today.
-            </div>`;
-
-    } else {
-
-        const icons = {
-            "Normal Burger": "🍔",
-            "Special Burger": "🍔",
-            "BBQ Sausage": "🌭",
-            "Butter Jagung": "🌽",
-            "Cheese Jagung": "🌽",
-            "Peach Tea": "🍑"
-        };
-
-
-        Object.entries(itemCounts)
-            .sort((a, b) => b[1] - a[1])
-            .forEach(([name, quantity]) => {
-
-                const row =
-                    document.createElement("div");
-
-                row.className = "item-row";
-
-
-                row.innerHTML = `
-
-                    <div class="item-name">
-
-                        ${icons[name] || "🍴"}
-                        ${name}
-
-                    </div>
-
-                    <div class="item-count">
-
-                        ${quantity}
-
-                    </div>
-
-                `;
-
-
-                itemBreakdown.appendChild(row);
-
-            });
-
+        return;
     }
 
 
-    // ==========================================
-    // TRANSACTION HISTORY
-    // ==========================================
-
-    const transactions =
-        document.getElementById("transactions");
+    container.innerHTML = "";
 
 
-    if (todaysSales.length === 0) {
+    const icons = {
 
-        transactions.innerHTML =
-            `<div class="empty">
-                No transactions yet.
-            </div>`;
+        "Normal Burger":
+            "🍔",
 
-    } else {
+        "Special Burger":
+            "🍔",
 
-        [...todaysSales]
-            .reverse()
-            .forEach((sale, index) => {
+        "BBQ Sausage":
+            "🌭",
+
+        "Butter Jagung":
+            "🌽",
+
+        "Cheese Jagung":
+            "🌽",
+
+        "Peach Tea":
+            "🍑",
+
+        "+ Egg":
+            "🥚",
+
+        "+ Double Patty":
+            "🍔"
+
+    };
 
 
-                let itemQuantity = 0;
+    entries.forEach(
+        ([name,count]) => {
 
 
-                sale.items.forEach(item => {
+            const row =
+                document.createElement(
+                    "div"
+                );
 
-                    itemQuantity +=
-                        item.quantity;
+
+            row.className =
+                "item-row";
+
+
+            row.innerHTML = `
+
+                <div class="item-name">
+
+                    ${icons[name] || "•"}
+                    ${name}
+
+                </div>
+
+                <div class="item-count">
+
+                    ${count}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+}
+
+
+// ==========================================
+// ORDER HISTORY
+// ==========================================
+
+function renderOrders(orders) {
+
+    const container =
+        document.getElementById(
+            "orderHistory"
+        );
+
+
+    if (
+        orders.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                No orders found.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    container.innerHTML = "";
+
+
+    [...orders]
+        .sort(
+            (a,b) =>
+                b.id - a.id
+        )
+        .forEach(order => {
+
+
+            const box =
+                document.createElement(
+                    "div"
+                );
+
+
+            box.className =
+                "order";
+
+
+            const statusClass =
+                order.status ===
+                "Paid"
+
+                    ? "status-paid"
+
+                    : "status-pending";
+
+
+            const date =
+                new Date(
+                    order.id
+                );
+
+
+            let itemsHTML = "";
+
+
+            order.items
+                .forEach(item => {
+
+
+                    const qty =
+                        Number(
+                            item.quantity
+                        ) || 0;
+
+
+                    const itemPrice =
+                        Number(
+                            item.price
+                        ) || 0;
+
+
+                    itemsHTML += `
+
+                        <div class="order-item">
+
+                            <span>
+
+                                ${item.name}
+                                × ${qty}
+
+                            </span>
+
+                            <strong>
+
+                                $${(
+                                    itemPrice *
+                                    qty
+                                ).toFixed(2)}
+
+                            </strong>
+
+                        </div>
+
+                    `;
+
+
+                    if (
+                        item.addons &&
+                        item.addons.length
+                    ) {
+
+                        const addonText =
+                            item.addons
+                                .map(
+                                    addon =>
+                                        `+ ${addon.name}`
+                                )
+                                .join(", ");
+
+
+                        itemsHTML += `
+
+                            <div class="order-addon">
+
+                                ${addonText}
+
+                            </div>
+
+                        `;
+
+                    }
 
                 });
 
 
-                const transaction =
-                    document.createElement("div");
+            box.innerHTML = `
 
+                <div class="order-header">
 
-                transaction.className =
-                    "transaction";
+                    <div>
 
+                        <div class="order-number">
 
-                const time =
-                    new Date(sale.id)
-                        .toLocaleTimeString(
-                            [],
-                            {
-                                hour: "2-digit",
-                                minute: "2-digit"
+                            Order #${order.orderNumber}
+
+                        </div>
+
+                        <div class="order-time">
+
+                            ${
+                                date.toLocaleString(
+                                    undefined,
+                                    {
+                                        day:
+                                            "numeric",
+
+                                        month:
+                                            "short",
+
+                                        year:
+                                            "numeric",
+
+                                        hour:
+                                            "2-digit",
+
+                                        minute:
+                                            "2-digit"
+                                    }
+                                )
                             }
-                        );
-
-
-                transaction.innerHTML = `
-
-                    <div class="transaction-top">
-
-                        <div class="transaction-number">
-
-                            Order #${todaysSales.length - index}
-
-                        </div>
-
-
-                        <div class="transaction-total">
-
-                            $${sale.total.toFixed(2)}
 
                         </div>
 
                     </div>
 
 
-                    <div class="transaction-details">
+                    <span
+                        class="status ${statusClass}">
 
-                        ${time}
-                        •
-                        ${itemQuantity} item${itemQuantity !== 1 ? "s" : ""}
-                        •
-                        Cash $${sale.cash.toFixed(2)}
-                        •
-                        Change $${sale.change.toFixed(2)}
+                        ${order.status}
+
+                    </span>
+
+                </div>
+
+
+                <div class="order-items">
+
+                    ${itemsHTML}
+
+                </div>
+
+
+                <div class="order-footer">
+
+                    <div class="order-total">
+
+                        $${Number(
+                            order.total
+                        ).toFixed(2)}
 
                     </div>
 
-                `;
+
+                    ${
+                        order.status ===
+                        "Pending"
+
+                            ?
+
+                            `<button
+                                class="mark-paid"
+                                onclick="markPaid(${order.id})">
+
+                                ✓ Mark as Paid
+
+                            </button>`
+
+                            :
+
+                            ""
+                    }
+
+                </div>
+
+            `;
 
 
-                transactions.appendChild(
-                    transaction
-                );
-
-            });
-
-    }
-
-
-    // ==========================================
-    // CLEAR SALES DATA
-    // ==========================================
-
-    function clearSales() {
-
-        const confirmation =
-            confirm(
-                "Are you sure you want to delete ALL sales data?"
+            container.appendChild(
+                box
             );
 
-
-        if (!confirmation) {
-
-            return;
-
-        }
+        });
+}
 
 
-        localStorage.removeItem(
-            "geraiSales"
-        );
+// ==========================================
+// TITLE
+// ==========================================
+
+function updateTitle(count) {
+
+    let text = "";
 
 
-        location.reload();
+    if (
+        dateFilter ===
+        "today"
+    ) {
+
+        text =
+            "Today's orders";
 
     }
+
+
+    else if (
+        dateFilter ===
+        "yesterday"
+    ) {
+
+        text =
+            "Yesterday's orders";
+
+    }
+
+
+    else if (
+        dateFilter ===
+        "all"
+    ) {
+
+        text =
+            "All orders";
+
+    }
+
+
+    else {
+
+        text =
+            chosenDate
+                .toLocaleDateString(
+                    undefined,
+                    {
+                        day:
+                            "numeric",
+
+                        month:
+                            "long",
+
+                        year:
+                            "numeric"
+                    }
+                );
+
+    }
+
+
+    document
+        .getElementById(
+            "viewTitle"
+        )
+        .textContent =
+
+        `${text} • ${count} order${count !== 1 ? "s" : ""}`;
+}
+
+
+// ==========================================
+// START
+// ==========================================
+
+renderDashboard();
 
 </script>
 
 
 </body>
-
 </html>

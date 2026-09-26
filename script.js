@@ -1,5 +1,5 @@
 // ==========================================
-// GERAI POS - CASHIER SYSTEM
+// GERAI POS
 // ==========================================
 
 let cart = [];
@@ -11,97 +11,283 @@ let selectedBurger = {
 
 
 // ==========================================
-// CATEGORY BUTTONS
+// OLD DATA MIGRATION
 // ==========================================
 
-function showCategory(categoryId, button) {
+function migrateOldSales() {
 
-    document.querySelectorAll(".product-category").forEach(category => {
-        category.classList.add("hidden");
+    const alreadyMigrated =
+        localStorage.getItem(
+            "geraiOldSalesMigrated"
+        );
+
+
+    if (alreadyMigrated === "yes") {
+        return;
+    }
+
+
+    const oldSales =
+        JSON.parse(
+            localStorage.getItem("geraiSales")
+        ) || [];
+
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem("geraiOrders")
+        ) || [];
+
+
+    oldSales.forEach(oldSale => {
+
+        const alreadyExists =
+            orders.some(order =>
+                order.id === oldSale.id
+            );
+
+
+        if (!alreadyExists) {
+
+            orders.push({
+
+                id: oldSale.id,
+
+                orderNumber: null,
+
+                date:
+                    oldSale.date ||
+                    new Date(
+                        oldSale.id
+                    ).toLocaleString(),
+
+                items:
+                    oldSale.items || [],
+
+                total:
+                    Number(oldSale.total) || 0,
+
+                status: "Paid",
+
+                migrated: true
+            });
+
+        }
+
     });
 
-    document.getElementById(categoryId).classList.remove("hidden");
 
-    document.querySelectorAll(".category").forEach(btn => {
-        btn.classList.remove("active");
-    });
+    orders.sort(
+        (a, b) => a.id - b.id
+    );
+
+
+    /*
+       Give old orders order numbers
+       if they didn't previously have one.
+    */
+
+    orders.forEach(
+        (order, index) => {
+
+            if (!order.orderNumber) {
+
+                order.orderNumber =
+                    index + 1;
+
+            }
+
+        }
+    );
+
+
+    localStorage.setItem(
+        "geraiOrders",
+        JSON.stringify(orders)
+    );
+
+
+    let currentCounter =
+        parseInt(
+            localStorage.getItem(
+                "geraiOrderCounter"
+            )
+        ) || 0;
+
+
+    if (orders.length > currentCounter) {
+
+        localStorage.setItem(
+            "geraiOrderCounter",
+            orders.length
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "geraiOldSalesMigrated",
+        "yes"
+    );
+}
+
+
+migrateOldSales();
+
+
+// ==========================================
+// CATEGORY
+// ==========================================
+
+function showCategory(
+    categoryId,
+    button
+) {
+
+    document
+        .querySelectorAll(
+            ".product-category"
+        )
+        .forEach(category => {
+
+            category
+                .classList
+                .add("hidden");
+
+        });
+
+
+    document
+        .getElementById(categoryId)
+        .classList
+        .remove("hidden");
+
+
+    document
+        .querySelectorAll(".category")
+        .forEach(btn => {
+
+            btn.classList.remove(
+                "active"
+            );
+
+        });
+
 
     button.classList.add("active");
 }
 
 
 // ==========================================
-// ADD NORMAL ITEM
+// NORMAL ITEMS
 // ==========================================
 
 function addItem(name, price) {
 
-    const existingItem = cart.find(item =>
-        item.name === name &&
-        item.addons.length === 0
-    );
+    const existing =
+        cart.find(item =>
 
-    if (existingItem) {
+            item.name === name &&
+            item.addons.length === 0
 
-        existingItem.quantity++;
+        );
+
+
+    if (existing) {
+
+        existing.quantity++;
 
     } else {
 
         cart.push({
+
             name: name,
+            basePrice: price,
             price: price,
             quantity: 1,
             addons: []
+
         });
 
     }
+
 
     renderCart();
 }
 
 
 // ==========================================
-// BURGER POPUP
+// BURGER
 // ==========================================
 
 function addBurger(name, price) {
 
-    selectedBurger.name = name;
-    selectedBurger.price = price;
+    selectedBurger = {
+        name,
+        price
+    };
 
-    document.getElementById("burgerName").textContent = name;
-
-    // Reset add-ons
-    document.getElementById("eggAddon").checked = false;
-    document.getElementById("pattyAddon").checked = false;
 
     document
-        .getElementById("burgerModal")
-        .classList.remove("hidden");
+        .getElementById(
+            "burgerName"
+        )
+        .textContent = name;
+
+
+    document
+        .getElementById(
+            "eggAddon"
+        )
+        .checked = false;
+
+
+    document
+        .getElementById(
+            "pattyAddon"
+        )
+        .checked = false;
+
+
+    document
+        .getElementById(
+            "burgerModal"
+        )
+        .classList
+        .remove("hidden");
 }
 
 
 function closeBurgerModal() {
 
     document
-        .getElementById("burgerModal")
-        .classList.add("hidden");
+        .getElementById(
+            "burgerModal"
+        )
+        .classList
+        .add("hidden");
 }
 
 
 // ==========================================
-// CONFIRM BURGER + ADD-ONS
+// CONFIRM BURGER
 // ==========================================
 
 function confirmBurger() {
 
     const addons = [];
 
-    let finalPrice = selectedBurger.price;
+    let finalPrice =
+        selectedBurger.price;
 
 
-    // Egg add-on
-    if (document.getElementById("eggAddon").checked) {
+    if (
+        document
+            .getElementById(
+                "eggAddon"
+            )
+            .checked
+    ) {
 
         addons.push({
             name: "Egg",
@@ -109,11 +295,17 @@ function confirmBurger() {
         });
 
         finalPrice += 1;
+
     }
 
 
-    // Double Patty add-on
-    if (document.getElementById("pattyAddon").checked) {
+    if (
+        document
+            .getElementById(
+                "pattyAddon"
+            )
+            .checked
+    ) {
 
         addons.push({
             name: "Double Patty",
@@ -121,42 +313,67 @@ function confirmBurger() {
         });
 
         finalPrice += 1;
+
     }
 
 
-    // Used to separate burgers with different add-ons
-    const addonKey = addons
-        .map(addon => addon.name)
-        .sort()
-        .join("-");
-
-
-    const existingBurger = cart.find(item => {
-
-        const existingKey = item.addons
+    const addonKey =
+        addons
             .map(addon => addon.name)
             .sort()
             .join("-");
 
-        return (
-            item.name === selectedBurger.name &&
-            existingKey === addonKey
-        );
 
-    });
+    const existing =
+        cart.find(item => {
+
+            const existingKey =
+                item.addons
+                    .map(
+                        addon =>
+                            addon.name
+                    )
+                    .sort()
+                    .join("-");
 
 
-    if (existingBurger) {
+            return (
 
-        existingBurger.quantity++;
+                item.name ===
+                    selectedBurger.name
+
+                &&
+
+                existingKey ===
+                    addonKey
+
+            );
+
+        });
+
+
+    if (existing) {
+
+        existing.quantity++;
 
     } else {
 
         cart.push({
-            name: selectedBurger.name,
-            price: finalPrice,
+
+            name:
+                selectedBurger.name,
+
+            basePrice:
+                selectedBurger.price,
+
+            price:
+                finalPrice,
+
             quantity: 1,
-            addons: addons
+
+            addons:
+                addons
+
         });
 
     }
@@ -169,32 +386,43 @@ function confirmBurger() {
 
 
 // ==========================================
-// DISPLAY CART
+// CART
 // ==========================================
 
 function renderCart() {
 
-    const cartElement = document.getElementById("cart");
+    const cartElement =
+        document.getElementById(
+            "cart"
+        );
 
 
-    // EMPTY CART
     if (cart.length === 0) {
 
         cartElement.innerHTML = `
+
             <div class="empty-cart">
 
                 <span>🛒</span>
 
                 <p>No items yet</p>
 
-                <small>Tap an item to add it</small>
+                <small>
+                    Tap an item to add it
+                </small>
 
             </div>
+
         `;
 
-        document.getElementById("total").textContent = "$0.00";
 
-        calculateChange();
+        document
+            .getElementById(
+                "total"
+            )
+            .textContent =
+                "$0.00";
+
 
         return;
     }
@@ -203,91 +431,117 @@ function renderCart() {
     cartElement.innerHTML = "";
 
 
-    cart.forEach((item, index) => {
-
-        const itemTotal = item.price * item.quantity;
-
-
-        let addonText = "";
-
-        if (item.addons.length > 0) {
-
-            addonText = item.addons
-                .map(addon => `+ ${addon.name}`)
-                .join(", ");
-
-        }
+    cart.forEach(
+        (item, index) => {
 
 
-        const itemElement = document.createElement("div");
+            const itemTotal =
+                item.price *
+                item.quantity;
 
-        itemElement.className = "cart-item";
+
+            let addonText = "";
 
 
-        itemElement.innerHTML = `
+            if (
+                item.addons &&
+                item.addons.length > 0
+            ) {
 
-            <div class="cart-item-top">
+                addonText =
+                    item.addons
+                        .map(
+                            addon =>
+                                `+ ${addon.name} ($${addon.price.toFixed(2)})`
+                        )
+                        .join("<br>");
 
-                <div>
+            }
 
-                    <div class="cart-item-name">
-                        ${item.name}
+
+            const element =
+                document.createElement(
+                    "div"
+                );
+
+
+            element.className =
+                "cart-item";
+
+
+            element.innerHTML = `
+
+                <div class="cart-item-top">
+
+                    <div>
+
+                        <div class="cart-item-name">
+
+                            ${item.name}
+
+                        </div>
+
+                        ${
+                            addonText
+                                ?
+                                `<div class="cart-addons">
+                                    ${addonText}
+                                </div>`
+                                :
+                                ""
+                        }
+
                     </div>
 
-                    ${
-                        addonText
-                            ? `<div class="cart-addons">${addonText}</div>`
-                            : ""
-                    }
+
+                    <div class="cart-item-price">
+
+                        $${itemTotal.toFixed(2)}
+
+                    </div>
 
                 </div>
 
-                <div class="cart-item-price">
-                    $${itemTotal.toFixed(2)}
+
+                <div class="quantity-controls">
+
+                    <button
+                        onclick="decreaseQuantity(${index})">
+                        −
+                    </button>
+
+                    <span>
+                        ${item.quantity}
+                    </span>
+
+                    <button
+                        onclick="increaseQuantity(${index})">
+                        +
+                    </button>
+
+
+                    <button
+                        class="remove-button"
+                        onclick="removeItem(${index})">
+
+                        Remove
+
+                    </button>
+
                 </div>
 
-            </div>
+            `;
 
 
-            <div class="quantity-controls">
+            cartElement.appendChild(
+                element
+            );
 
-                <button onclick="decreaseQuantity(${index})">
-                    −
-                </button>
-
-                <span>
-                    ${item.quantity}
-                </span>
-
-                <button onclick="increaseQuantity(${index})">
-                    +
-                </button>
-
-                <button
-                    onclick="removeItem(${index})"
-                    style="
-                        margin-left: auto;
-                        width: auto;
-                        padding: 0 10px;
-                        font-size: 13px;
-                    "
-                >
-                    Remove
-                </button>
-
-            </div>
-
-        `;
-
-
-        cartElement.appendChild(itemElement);
-
-    });
+        }
+    );
 
 
     updateTotal();
-
-    calculateChange();
 }
 
 
@@ -308,7 +562,9 @@ function decreaseQuantity(index) {
     cart[index].quantity--;
 
 
-    if (cart[index].quantity <= 0) {
+    if (
+        cart[index].quantity <= 0
+    ) {
 
         cart.splice(index, 1);
 
@@ -319,10 +575,6 @@ function decreaseQuantity(index) {
 }
 
 
-// ==========================================
-// REMOVE ITEM
-// ==========================================
-
 function removeItem(index) {
 
     cart.splice(index, 1);
@@ -332,75 +584,40 @@ function removeItem(index) {
 
 
 // ==========================================
-// GET TOTAL
+// TOTAL
 // ==========================================
 
 function getTotal() {
 
-    return cart.reduce((total, item) => {
+    return cart.reduce(
+        (total, item) =>
 
-        return total + (item.price * item.quantity);
+            total +
+            (
+                item.price *
+                item.quantity
+            ),
 
-    }, 0);
+        0
+    );
 }
 
-
-// ==========================================
-// UPDATE TOTAL
-// ==========================================
 
 function updateTotal() {
 
-    const total = getTotal();
+    document
+        .getElementById(
+            "total"
+        )
+        .textContent =
 
-    document.getElementById("total").textContent =
-        "$" + total.toFixed(2);
+        "$" +
+        getTotal().toFixed(2);
 }
 
 
 // ==========================================
-// CASH + CHANGE
-// ==========================================
-
-function calculateChange() {
-
-    const total = getTotal();
-
-    const cash =
-        parseFloat(
-            document.getElementById("cashReceived").value
-        ) || 0;
-
-
-    const change = cash - total;
-
-    const changeElement =
-        document.getElementById("change");
-
-
-    if (cash === 0) {
-
-        changeElement.textContent = "$0.00";
-
-        return;
-    }
-
-
-    if (change < 0) {
-
-        changeElement.textContent =
-            "Short $" + Math.abs(change).toFixed(2);
-
-    } else {
-
-        changeElement.textContent =
-            "$" + change.toFixed(2);
-    }
-}
-
-
-// ==========================================
-// CLEAR ORDER
+// CLEAR CART
 // ==========================================
 
 function clearCart() {
@@ -410,131 +627,246 @@ function clearCart() {
     }
 
 
-    const confirmClear =
-        confirm("Clear the current order?");
-
-
-    if (!confirmClear) {
-        return;
-    }
-
-
-    cart = [];
-
-    document.getElementById("cashReceived").value = "";
-
-    renderCart();
-}
-
-
-// ==========================================
-// COMPLETE SALE
-// ==========================================
-
-function checkout() {
-
-    if (cart.length === 0) {
-
-        alert("Add an item first.");
-
-        return;
-    }
-
-
-    const total = getTotal();
-
-
-    const cash =
-        parseFloat(
-            document.getElementById("cashReceived").value
+    const yes =
+        confirm(
+            "Clear the current order?"
         );
 
 
-    if (isNaN(cash)) {
-
-        alert("Enter the cash received.");
-
+    if (!yes) {
         return;
     }
 
 
-    if (cash < total) {
-
-        alert("The cash received is not enough.");
-
-        return;
-    }
-
-
-    const change = cash - total;
-
-
-    // Create transaction
-    const sale = {
-
-        id: Date.now(),
-
-        date: new Date().toLocaleString(),
-
-        items: JSON.parse(JSON.stringify(cart)),
-
-        total: total,
-
-        cash: cash,
-
-        change: change
-    };
-
-
-    // Load previous sales
-    const sales =
-        JSON.parse(
-            localStorage.getItem("geraiSales")
-        ) || [];
-
-
-    // Add transaction
-    sales.push(sale);
-
-
-    // Save transactions
-    localStorage.setItem(
-        "geraiSales",
-        JSON.stringify(sales)
-    );
-
-
-    // Confirmation
-    alert(
-        "Sale completed!\n\n" +
-        "Total: $" + total.toFixed(2) +
-        "\nCash: $" + cash.toFixed(2) +
-        "\nChange: $" + change.toFixed(2)
-    );
-
-
-    // Reset cashier
     cart = [];
-
-    document.getElementById("cashReceived").value = "";
 
     renderCart();
 }
 
 
 // ==========================================
-// OPEN SALES DASHBOARD
+// ORDER NUMBER
+// ==========================================
+
+function getNextOrderNumber() {
+
+    let counter =
+        parseInt(
+            localStorage.getItem(
+                "geraiOrderCounter"
+            )
+        ) || 0;
+
+
+    counter++;
+
+
+    localStorage.setItem(
+        "geraiOrderCounter",
+        counter
+    );
+
+
+    return counter;
+}
+
+
+// ==========================================
+// COMPLETE ORDER
+// ==========================================
+
+function completeOrder(status) {
+
+    if (cart.length === 0) {
+
+        alert(
+            "Add an item first."
+        );
+
+        return;
+    }
+
+
+    const total =
+        getTotal();
+
+
+    const orderNumber =
+        getNextOrderNumber();
+
+
+    const order = {
+
+        id: Date.now(),
+
+        orderNumber:
+            orderNumber,
+
+        date:
+            new Date()
+                .toLocaleString(),
+
+        items:
+            JSON.parse(
+                JSON.stringify(cart)
+            ),
+
+        total:
+            total,
+
+        status:
+            status,
+
+        migrated:
+            false
+    };
+
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "geraiOrders"
+            )
+        ) || [];
+
+
+    orders.push(order);
+
+
+    localStorage.setItem(
+        "geraiOrders",
+        JSON.stringify(orders)
+    );
+
+
+    showSuccess(
+        orderNumber,
+        status,
+        total
+    );
+
+
+    cart = [];
+
+    renderCart();
+}
+
+
+// ==========================================
+// SUCCESS MESSAGE
+// ==========================================
+
+function showSuccess(
+    number,
+    status,
+    total
+) {
+
+    const overlay =
+        document.getElementById(
+            "successMessage"
+        );
+
+
+    document
+        .getElementById(
+            "successTitle"
+        )
+        .textContent =
+
+        status === "Paid"
+            ? "Payment Complete"
+            : "Order Saved as Pending";
+
+
+    document
+        .getElementById(
+            "successDetails"
+        )
+        .textContent =
+
+        `Order #${number} • $${total.toFixed(2)}`;
+
+
+    document
+        .getElementById(
+            "successIcon"
+        )
+        .textContent =
+
+        status === "Paid"
+            ? "✓"
+            : "⏳";
+
+
+    overlay
+        .classList
+        .remove("hidden");
+
+
+    setTimeout(() => {
+
+        overlay
+            .classList
+            .add("hidden");
+
+    }, 1200);
+}
+
+
+// ==========================================
+// SALES PAGE
 // ==========================================
 
 function showSales() {
 
-    window.location.href = "sales.html";
-
+    window.location.href =
+        "sales.html";
 }
 
 
 // ==========================================
-// START APP
+// CURRENT TIME
+// ==========================================
+
+function updateCurrentTime() {
+
+    const element =
+        document.getElementById(
+            "currentOrderTime"
+        );
+
+
+    if (!element) {
+        return;
+    }
+
+
+    element.textContent =
+        new Date()
+            .toLocaleString(
+                undefined,
+                {
+                    weekday: "short",
+                    day: "numeric",
+                    month: "short",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+}
+
+
+updateCurrentTime();
+
+setInterval(
+    updateCurrentTime,
+    30000
+);
+
+
+// ==========================================
+// START
 // ==========================================
 
 renderCart();

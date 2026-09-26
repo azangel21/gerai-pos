@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
 
     <title>Gerai POS</title>
 
@@ -14,40 +15,47 @@
 <header>
     <div>
         <h1>GERAI POS</h1>
-        <p>Cashier System</p>
+        <p>Cashier & Order System</p>
     </div>
 
     <button class="sales-button" onclick="showSales()">
-        📊 Sales
+        📋 Orders & Sales
     </button>
 </header>
 
 
 <main>
 
-    <!-- LEFT SIDE: MENU -->
+    <!-- MENU -->
     <section class="menu-section">
 
         <div class="category-tabs">
-            <button class="category active" onclick="showCategory('burger', this)">
+
+            <button class="category active"
+                onclick="showCategory('burger', this)">
                 🍔 Burger
             </button>
 
-            <button class="category" onclick="showCategory('sausage', this)">
+            <button class="category"
+                onclick="showCategory('sausage', this)">
                 🌭 Sausage
             </button>
 
-            <button class="category" onclick="showCategory('jagung', this)">
+            <button class="category"
+                onclick="showCategory('jagung', this)">
                 🌽 Jagung
             </button>
 
-            <button class="category" onclick="showCategory('peach', this)">
+            <button class="category"
+                onclick="showCategory('peach', this)">
                 🍑 Peach
             </button>
+
         </div>
 
 
         <!-- BURGER -->
+
         <div id="burger" class="product-category">
 
             <h2>Burgers</h2>
@@ -56,18 +64,34 @@
 
                 <button class="product"
                     onclick="addBurger('Normal Burger', 2)">
+
                     <span>🍔</span>
+
                     <strong>Normal Burger</strong>
-                    <small>Bread, buns & sauce</small>
+
+                    <small>
+                        Bread, bun & sauce
+                    </small>
+
                     <b>$2.00</b>
+
                 </button>
+
 
                 <button class="product"
                     onclick="addBurger('Special Burger', 3)">
+
                     <span>🍔</span>
+
                     <strong>Special Burger</strong>
-                    <small>Lettuce, vegetables & caramelized onion</small>
+
+                    <small>
+                        Lettuce, vegetables &
+                        caramelized onion
+                    </small>
+
                     <b>$3.00</b>
+
                 </button>
 
             </div>
@@ -76,7 +100,9 @@
 
 
         <!-- SAUSAGE -->
-        <div id="sausage" class="product-category hidden">
+
+        <div id="sausage"
+             class="product-category hidden">
 
             <h2>Sausage</h2>
 
@@ -84,10 +110,15 @@
 
                 <button class="product"
                     onclick="addItem('BBQ Sausage', 0.50)">
+
                     <span>🌭</span>
+
                     <strong>BBQ Sausage</strong>
+
                     <small>1 piece</small>
+
                     <b>$0.50</b>
+
                 </button>
 
             </div>
@@ -96,7 +127,9 @@
 
 
         <!-- JAGUNG -->
-        <div id="jagung" class="product-category hidden">
+
+        <div id="jagung"
+             class="product-category hidden">
 
             <h2>Jagung</h2>
 
@@ -104,16 +137,25 @@
 
                 <button class="product"
                     onclick="addItem('Butter Jagung', 2)">
+
                     <span>🌽</span>
+
                     <strong>Butter Jagung</strong>
+
                     <b>$2.00</b>
+
                 </button>
+
 
                 <button class="product"
                     onclick="addItem('Cheese Jagung', 3)">
+
                     <span>🧀</span>
+
                     <strong>Cheese Jagung</strong>
+
                     <b>$3.00</b>
+
                 </button>
 
             </div>
@@ -122,7 +164,9 @@
 
 
         <!-- PEACH -->
-        <div id="peach" class="product-category hidden">
+
+        <div id="peach"
+             class="product-category hidden">
 
             <h2>Drinks</h2>
 
@@ -130,9 +174,13 @@
 
                 <button class="product"
                     onclick="addItem('Peach Tea', 2)">
+
                     <span>🍑</span>
+
                     <strong>Peach Tea</strong>
+
                     <b>$2.00</b>
+
                 </button>
 
             </div>
@@ -142,58 +190,53 @@
     </section>
 
 
-    <!-- RIGHT SIDE: ORDER -->
+    <!-- CURRENT ORDER -->
+
     <section class="order-section">
 
-        <h2>🛒 Current Order</h2>
+        <div class="order-heading">
 
-        <div id="cart">
-
-            <div class="empty-cart">
-                <span>🛒</span>
-                <p>No items yet</p>
-                <small>Tap an item to add it</small>
+            <div>
+                <h2>🛒 Current Order</h2>
+                <p id="currentOrderTime"></p>
             </div>
 
         </div>
 
 
+        <div id="cart"></div>
+
+
         <div class="order-bottom">
 
             <div class="total-row">
+
                 <span>TOTAL</span>
-                <strong id="total">$0.00</strong>
-            </div>
 
-
-            <div class="payment">
-
-                <label>Cash Received</label>
-
-                <input
-                    type="number"
-                    id="cashReceived"
-                    placeholder="$0.00"
-                    step="0.01"
-                    oninput="calculateChange()"
-                >
-
-                <div class="change-row">
-                    <span>Change</span>
-                    <strong id="change">$0.00</strong>
-                </div>
+                <strong id="total">
+                    $0.00
+                </strong>
 
             </div>
 
 
             <div class="order-actions">
 
-                <button class="clear-button" onclick="clearCart()">
+                <button class="clear-button"
+                    onclick="clearCart()">
                     Clear
                 </button>
 
-                <button class="checkout-button" onclick="checkout()">
-                    Complete Sale
+
+                <button class="pending-button"
+                    onclick="completeOrder('Pending')">
+                    Save Pending
+                </button>
+
+
+                <button class="paid-button"
+                    onclick="completeOrder('Paid')">
+                    ✓ Paid
                 </button>
 
             </div>
@@ -205,27 +248,43 @@
 </main>
 
 
-<!-- BURGER ADD-ON POPUP -->
+<!-- BURGER ADD-ON MODAL -->
 
-<div id="burgerModal" class="modal hidden">
+<div id="burgerModal"
+     class="modal hidden">
 
     <div class="modal-content">
 
-        <h2 id="burgerName">Burger</h2>
+        <h2 id="burgerName">
+            Burger
+        </h2>
 
         <p>Add extras?</p>
 
-        <label class="addon">
-            <input type="checkbox" id="eggAddon">
-            <span>🥚 Add Egg</span>
-            <strong>+$1.00</strong>
-        </label>
 
         <label class="addon">
-            <input type="checkbox" id="pattyAddon">
-            <span>🍔 Double Patty</span>
+
+            <input type="checkbox"
+                   id="eggAddon">
+
+            <span>🥚 Add Egg</span>
+
             <strong>+$1.00</strong>
+
         </label>
+
+
+        <label class="addon">
+
+            <input type="checkbox"
+                   id="pattyAddon">
+
+            <span>🍔 Double Patty</span>
+
+            <strong>+$1.00</strong>
+
+        </label>
+
 
         <div class="modal-buttons">
 
@@ -233,7 +292,8 @@
                 Cancel
             </button>
 
-            <button class="add-button" onclick="confirmBurger()">
+            <button class="add-button"
+                    onclick="confirmBurger()">
                 Add to Order
             </button>
 
@@ -242,6 +302,35 @@
     </div>
 
 </div>
+
+
+<!-- ORDER SAVED MESSAGE -->
+
+<div id="successMessage"
+     class="success-message hidden">
+
+    <div class="success-box">
+
+        <div id="successIcon"
+             class="success-icon">
+            ✓
+        </div>
+
+        <h2 id="successTitle">
+            Order Saved
+        </h2>
+
+        <p id="successDetails"></p>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
 
 
 <script src="script.js"></script>
